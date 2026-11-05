@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="NEX 数据 Skill 查询简洁交互演示：选择 Skill、绑定演示 AK/SK、查询并查看结果。">
+<title>数据 Skill 查询 · NEX</title>
+<style>
+:root{--blue:#3763ed;--blue-light:#eff3ff;--ink:#26334b;--muted:#8a94a6;--line:#e9edf3;--page:#f7f8fb;--green:#26966a;--red:#d35454}*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed}button,input,textarea,select,summary{outline-offset:3px}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #8fa8fa}.layout{min-height:100vh;display:flex}.sidebar{width:190px;flex:none;background:#fff;border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;padding:29px 16px;display:flex;flex-direction:column}.brand{font-size:26px;letter-spacing:1px;font-weight:750;color:#2c3f6d;display:flex;align-items:center;gap:9px;padding:0 13px}.brand-symbol{width:26px;height:27px;display:grid;place-items:center;color:var(--blue);font-size:27px;letter-spacing:-5px;margin-right:3px}.brand-sub{font-size:10px;letter-spacing:.8px;color:#a0a9b8;padding:5px 14px 36px}.nav-label{display:flex;align-items:center;gap:10px;color:#8f99aa;font-size:13px;padding:11px 13px}.nav-item{display:flex;align-items:center;gap:9px;color:var(--blue);background:var(--blue-light);border-radius:6px;padding:11px 12px;margin-top:4px;font-size:13px;font-weight:550}.nav-dot{height:5px;width:5px;flex:none;background:var(--blue);border-radius:50%;margin-left:4px}.sidebar-bottom{margin-top:auto;font-size:10px;color:#a1abba;padding:0 13px;line-height:1.9}.main{margin-left:190px;width:calc(100% - 190px)}.topbar{height:67px;background:#fff;border-bottom:1px solid var(--line);padding:0 37px;display:flex;align-items:center;justify-content:space-between;gap:20px}.breadcrumb{display:flex;align-items:center;gap:11px;font-size:12px;color:#a0a9b8}.breadcrumb strong{font-weight:500;color:#66748b}.demo-badge{border:1px solid #e4e9f2;background:#fafbfd;border-radius:4px;padding:4px 8px;font-size:10px;letter-spacing:.5px;color:#929eb2}.content{max-width:1132px;margin:0 auto;padding:40px 36px 24px}.page-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.page-heading h1{font-size:24px;line-height:1.4;margin:0 0 8px;letter-spacing:-.5px;font-weight:650}.page-heading p{font-size:12px;color:#8a96a9;margin:0}.query-card{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 4px 12px #1d365004;overflow:hidden}.query-top{padding:24px 26px 22px;display:flex;align-items:end;justify-content:space-between;gap:24px;border-bottom:1px solid #f0f2f6}.field-label{display:block;color:#53627b;font-size:12px;font-weight:550;margin-bottom:10px}.skill-select{border:1px solid #dce3ee;background:#fff;border-radius:6px;color:#465673;padding:10px 35px 10px 13px;min-width:290px;max-width:100%;height:43px}.skill-select:disabled{background:#f9fafc;color:#a1aabc}.connection-block{display:flex;align-items:center;gap:12px;padding-bottom:2px}.connection-state{font-size:12px;color:#909bad;white-space:nowrap;display:flex;align-items:center;gap:7px}.dot{width:6px;height:6px;border-radius:50%;background:#b8c0cd;display:inline-block}.connection-state.connected{color:#5c7a6d}.connection-state.connected .dot{background:#44aa7d}.btn{border:1px solid #dfe5ef;background:#fff;color:#586982;border-radius:6px;padding:8px 14px;line-height:1.5;font-size:12px;white-space:nowrap}.btn:hover{background:#f7f9fe;border-color:#bac9ef}.btn:disabled{color:#b1bac8;background:#fafbfd;border-color:#e7ebf2}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.primary:hover{background:#2c53d0;border-color:#2c53d0}.btn.primary:disabled{background:#ced8f8;border-color:#ced8f8;color:#fff}.question-area{padding:22px 26px 25px}.question-input{display:block;width:100%;min-height:130px;resize:vertical;border:1px solid #dce3ee;border-radius:7px;padding:14px 15px;color:#3c4e6c;background:#fff;font-size:13px;line-height:1.8;transition:border-color .15s}.question-input:focus{border-color:#8da7f6;outline:2px solid #edf2ff;outline-offset:0}.question-input::placeholder{color:#aab3c2}.question-input:disabled{background:#fbfcfd;color:#98a4b8}.query-actions{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:16px}.query-hint{font-size:11px;color:#a1abbb;line-height:1.7}.query-hint.ready{color:#7d92b6}.query-button{min-width:96px;font-size:13px;padding:9px 22px;display:flex;align-items:center;justify-content:center;gap:7px}.result-section{margin-top:27px}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 1px 12px;gap:12px}.section-heading h2{font-size:14px;margin:0;font-weight:600}.status{display:flex;align-items:center;gap:6px;font-size:11px;color:#97a3b6}.status-dot{height:6px;width:6px;border-radius:50%;background:#b8c4d5}.status.running{color:var(--blue)}.status.running .status-dot{background:var(--blue)}.status.success{color:var(--green)}.status.success .status-dot{background:var(--green)}.status.error{color:var(--red)}.status.error .status-dot{background:var(--red)}.result-box{min-height:220px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}.result-empty{padding:42px 26px;text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center}.result-symbol{width:36px;height:39px;border:1px solid #e2e8f3;border-radius:7px;margin-bottom:15px;display:grid;place-items:center;color:#a9bad3;background:#fcfdff;font-size:22px}.result-empty h3{font-weight:500;font-size:13px;color:#71819b;margin:0 0 7px}.result-empty p{font-size:11px;line-height:1.9;color:#a1acbe;margin:0;max-width:470px}.spinner{display:inline-block;width:23px;height:23px;border:2px solid #e3eafd;border-top-color:var(--blue);border-radius:50%;animation:spin .85s linear infinite;margin-bottom:16px}@keyframes spin{to{transform:rotate(360deg)}}.result-content{padding:23px 26px 25px}.result-meta{display:flex;align-items:center;gap:8px;color:#9ca9bb;font-size:10px;margin-bottom:15px}.result-meta .label{color:#8093b3;background:#f3f6fc;padding:3px 6px;border-radius:4px}.result-description{font-size:13px;line-height:1.9;margin:0 0 20px;color:#62738d}.result-description strong{font-weight:600;color:#334d77}.table-wrap{overflow:auto;border:1px solid #e9edf4;border-radius:6px}table{width:100%;border-collapse:collapse;font-size:12px;text-align:left;white-space:nowrap}th,td{padding:12px 16px;border-bottom:1px solid #edf0f5}th{background:#f8fafd;color:#8a98ae;font-weight:500}td{color:#61728b}tr:last-child td{border-bottom:none}.num{text-align:right;font-variant-numeric:tabular-nums}.result-note{font-size:10px;line-height:1.8;color:#a2adbe;margin:14px 0 0}.error-icon{width:35px;height:35px;background:#fff4f2;border:1px solid #f8ded8;color:#d78c7b;display:grid;place-items:center;font-size:18px;border-radius:50%;margin-bottom:16px}.error-title{color:#aa6f65!important}.result-error-button{margin-top:18px}.footnote{margin:18px 1px 0;display:flex;justify-content:space-between;align-items:start;gap:25px}.footnote p{margin:0;color:#a7afbd;font-size:10px;line-height:1.9}.demo-settings{flex:none;position:relative;min-width:94px;text-align:right}.demo-settings summary{font-size:10px;color:#95a3b8;cursor:pointer;list-style:none;user-select:none}.demo-settings summary::after{content:'⌄';margin-left:6px}.demo-settings[open] summary::after{content:'⌃'}.settings-panel{margin-top:9px;display:flex;gap:8px;align-items:center;justify-content:flex-end;font-size:10px;color:#9aa7bc}.settings-panel select{background:#fff;border:1px solid #e2e8f1;border-radius:4px;padding:5px 7px;color:#7d8da7;font-size:10px;max-width:150px}.settings-help{margin:7px 0 0!important;color:#adb7c5!important;font-size:9px!important}.backdrop{position:fixed;inset:0;background:#1f355f42;backdrop-filter:blur(2px);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}.modal{width:450px;max-width:100%;background:#fff;border-radius:12px;box-shadow:0 22px 80px #23395f26;padding:25px 28px 26px;position:relative;max-height:90vh;overflow:auto}.modal h2{margin:0 0 8px;font-size:19px;font-weight:600}.modal-intro{font-size:12px;color:#8f9db2;line-height:1.9;margin:0 24px 20px 0}.close{position:absolute;top:21px;right:23px;border:0;background:none;color:#a2aec0;font-size:23px;padding:0 3px;line-height:1}.demo-notice{font-size:11px;line-height:1.8;color:#8293b1;background:#f5f8fe;border-radius:6px;padding:11px 13px;margin-bottom:18px}.credential-field{display:block;margin-top:16px}.credential-field>span{display:block;color:#687b99;font-size:12px;margin-bottom:8px}.credential-field input{display:block;width:100%;border:1px solid #dce4f0;border-radius:6px;padding:10px 12px;font-size:13px;color:#4e6284;outline-offset:2px}.credential-field input::placeholder{color:#b0bacb}.bind-error{font-size:11px;line-height:1.7;color:#cf6c6c;margin:12px 0 0}.bind-error[hidden]{display:none}.demo-fill{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--blue);border:0;background:none;padding:0;margin-top:14px}.demo-fill:hover{text-decoration:underline}.modal-actions{margin-top:23px;display:flex;justify-content:flex-end;gap:9px}.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);padding:11px 18px;border-radius:7px;background:#324566;color:#fff;font-size:12px;line-height:1.7;box-shadow:0 5px 25px #2a3d6525;z-index:200;max-width:85vw}.toast[hidden]{display:none}@media(min-width:1500px){.content{padding-top:47px}.query-top{padding-top:26px;padding-bottom:25px}.question-input{min-height:143px}.result-box,.result-empty{min-height:230px}}@media(max-width:1000px){.sidebar{width:170px;padding-left:12px;padding-right:12px}.main{margin-left:170px;width:calc(100% - 170px)}.content{padding:30px 25px 25px}.topbar{padding:0 25px}.skill-select{min-width:250px}.connection-block{gap:8px}.query-top{gap:16px;padding:22px}.question-area{padding:22px}.connection-state{font-size:11px}.query-top .btn{font-size:11px;padding:8px 10px}.result-content{padding:22px}.footnote{gap:12px}}@media(max-width:780px){.sidebar{width:150px}.main{margin-left:150px;width:calc(100% - 150px)}.brand{font-size:23px;padding-left:8px}.brand-sub{font-size:9px;padding-left:9px}.nav-label,.nav-item{font-size:11px;padding-left:8px;padding-right:8px}.query-top{align-items:start;flex-direction:column;gap:17px}.skill-group,.skill-select{width:100%;min-width:0}.connection-block{width:100%;justify-content:space-between}.content{padding:26px 21px}.question-input{min-height:120px}.page-heading h1{font-size:22px}.footnote{flex-direction:column;gap:12px}.demo-settings{text-align:left;width:100%}.settings-panel{justify-content:flex-start}.result-meta{flex-wrap:wrap}.result-content{padding:20px}.result-description{font-size:12px}}@media(max-width:560px){.sidebar{display:none}.main{margin:0;width:100%}.topbar{height:58px;padding:0 20px}.breadcrumb{font-size:11px}.content{padding:26px 17px}.query-top,.question-area{padding:20px}.query-actions{align-items:end;gap:15px}.query-hint{max-width:215px;font-size:10px}.query-button{padding:9px 19px;min-width:88px}.result-section{margin-top:23px}.modal{padding:24px}.demo-badge{font-size:9px}.page-heading h1{font-size:22px}.page-heading p{font-size:11px}th,td{padding:11px 12px}.result-empty{padding:34px 20px}.result-note{font-size:10px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar" aria-label="工作空间导航">
+    <div class="brand"><span class="brand-symbol" aria-hidden="true">↗</span>NEX</div>
+    <div class="brand-sub">数据生产管理平台</div>
+    <div class="nav-label"><span aria-hidden="true">▦</span>仪表盘</div>
+    <div class="nav-item" aria-current="page"><span class="nav-dot"></span>数据 Skill 查询</div>
+    <div class="sidebar-bottom">DATA WORKSPACE<br>质检能力交互演示</div>
+  </aside>
+  <div class="main">
+    <header class="topbar"><div class="breadcrumb"><span>仪表盘</span><span>/</span><strong>数据 Skill 查询</strong></div><span class="demo-badge">交互演示</span></header>
+    <main class="content">
+      <div class="page-heading"><div><h1>数据 Skill 查询</h1><p>选择 Skill，绑定 AK / SK，输入问题并查看结果。</p></div></div>
+      <section class="query-card" aria-label="发起查询">
+        <div class="query-top">
+          <div class="skill-group"><label class="field-label" for="skill">选择 Skill</label><select class="skill-select" id="skill"><option value="">请选择 Skill</option><option value="quality">质检查询 Skill（演示）</option><option value="warehouse">通用数仓指标查询（演示）</option></select></div>
+          <div class="connection-block"><span class="connection-state" id="connectionState"><span class="dot"></span><span id="connectionText">未绑定 AK / SK</span></span><button class="btn" type="button" id="bindingButton">绑定 AK / SK</button></div>
+        </div>
+        <div class="question-area"><label class="field-label" for="question">查询问题</label><textarea class="question-input" id="question" placeholder="请输入你想查询的问题，例如：上周各业务线的质检情况怎么样？" maxlength="1000"></textarea><div class="query-actions"><span class="query-hint" id="queryHint">请选择 Skill 并绑定演示 AK / SK 后查询。</span><button class="btn primary query-button" id="queryButton" type="button" disabled>查询 <span aria-hidden="true">→</span></button></div></div>
+      </section>
+      <section class="result-section" aria-label="查询结果"><div class="section-heading"><h2>查询结果</h2><span class="status" id="status" role="status"><span class="status-dot"></span><span id="statusText">待查询</span></span></div><div class="result-box" id="result" aria-live="polite"><div class="result-empty"><div class="result-symbol" aria-hidden="true">≡</div><h3>结果将在这里显示</h3><p>选择需要的 Skill，输入问题后开始查询。</p></div></div></section>
+      <div class="footnote"><p>本页仅演示交互，使用固定示例结果，不连接 AIQ 或生产数据。质检 Skill 尚待发布接入。</p><details class="demo-settings" id="demoSettings"><summary>演示设置</summary><div class="settings-panel"><label for="nextOutcome">下次返回</label><select id="nextOutcome"><option value="success">成功</option><option value="empty">无数据</option><option value="quota">额度不足</option><option value="auth">AK / SK 失效</option><option value="failure">调用失败</option></select></div><p class="settings-help">仅用于测试结果与异常状态。</p></details></div>
+    </main>
+  </div>
+</div>
+<div id="modalRoot"></div><div class="toast" id="toast" role="status" hidden></div>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const bindingStorageKey = 'nex-skill-demo-bound-v1';
+let bound = false;
+let bindingRemembered = false;
+try { bound = localStorage.getItem(bindingStorageKey) === 'true'; bindingRemembered = bound; } catch (error) { /* 当前浏览器不可读取存储时，继续使用当次演示。 */ }
+let querying = false;
+let modalReturnFocus = null;
+let toastTimer = null;
+const skillNames = {quality:'质检查询 Skill（演示）',warehouse:'通用数仓指标查询（演示）'};
+function notify(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{$('toast').hidden=true;},3200);}
+function updateControls(){
+  const skill=$('skill').value, question=$('question').value.trim();
+  $('queryButton').disabled=querying||!skill||!bound||!question;
+  $('skill').disabled=querying;$('question').disabled=querying;$('bindingButton').disabled=querying||!skill;$('bindingButton').title=!skill?'先选择 Skill':'';$('nextOutcome').disabled=querying;
+  $('queryButton').innerHTML=querying?'查询中…':'查询 <span aria-hidden="true">→</span>';
+  $('connectionState').classList.toggle('connected',bound);
+  $('connectionText').textContent=bound?(bindingRemembered?'AK / SK 已绑定（已记住）':'AK / SK 已绑定（仅本次）'):'未绑定 AK / SK';
+  $('bindingButton').textContent=bound?'修改绑定':'绑定 AK / SK';
+  let hint='';
+  if(querying)hint='正在调用 Skill，请稍候…';
+  else if(!skill)hint=bound?'已有演示绑定，请选择 Skill。':'先选择 Skill，再绑定 AK / SK。';
+  else if(!bound)hint='请先绑定演示 AK / SK。';
+  else if(!question)hint='请输入查询问题。';
+  else hint='准备就绪，点击查询查看固定演示结果。';
+  $('queryHint').textContent=hint;$('queryHint').classList.toggle('ready',Boolean(skill&&bound&&question&&!querying));
+}
+function setStatus(state,label){$('status').className='status'+(state?' '+state:'');$('statusText').textContent=label;}
+function resetResult(){setStatus('','待查询');$('result').innerHTML='<div class="result-empty"><div class="result-symbol" aria-hidden="true">≡</div><h3>结果将在这里显示</h3><p>选择需要的 Skill，输入问题后开始查询。</p></div>';}
+$('skill').addEventListener('change',()=>{resetResult();$('question').placeholder=$('skill').value==='warehouse'?'请输入你想查询的问题，例如：上周各业务线的作业量是多少？':'请输入你想查询的问题，例如：上周各业务线的质检情况怎么样？';updateControls();});
+$('question').addEventListener('input',updateControls);
+$('bindingButton').addEventListener('click',openBinding);
+$('queryButton').addEventListener('click',startQuery);
+function openBinding(){
+  if(querying||!$('skill').value)return;
+  modalReturnFocus=document.activeElement;
+  $('modalRoot').innerHTML=`<div class="backdrop" id="bindingBackdrop"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="bindingTitle" aria-describedby="bindingIntro"><button class="close" type="button" id="closeBinding" aria-label="关闭绑定弹窗">×</button><h2 id="bindingTitle">绑定 AK / SK</h2><p class="modal-intro" id="bindingIntro">绑定后，即可调用所选 Skill 进行查询。</p><div class="demo-notice">仅接受演示值，请勿填写真实凭证。浏览器只记住“已绑定”状态，不保存或发送 AK / SK；刷新、重新打开及切换 Skill 后可复用。</div><form id="bindingForm" autocomplete="off"><label class="credential-field"><span>AK</span><input id="akInput" name="demo-ak-field" type="text" placeholder="请输入演示 AK" autocomplete="off" spellcheck="false" maxlength="200"></label><label class="credential-field"><span>SK</span><input id="skInput" name="demo-sk-field" type="password" placeholder="请输入演示 SK" autocomplete="new-password" maxlength="200"></label><p class="bind-error" id="bindError" role="alert" hidden></p><button class="demo-fill" type="button" id="fillDemo">↳ 填入演示值</button><div class="modal-actions"><button class="btn" type="button" id="cancelBinding">取消</button><button class="btn primary" type="submit">确认绑定</button></div></form></section></div>`;
+  $('closeBinding').addEventListener('click',closeBinding);$('cancelBinding').addEventListener('click',closeBinding);
+  $('bindingBackdrop').addEventListener('click',event=>{if(event.target===$('bindingBackdrop'))closeBinding();});
+  $('fillDemo').addEventListener('click',()=>{$('akInput').value='demo-ak';$('skInput').value='demo-sk';$('bindError').hidden=true;});
+  $('bindingForm').addEventListener('submit',bindDemoCredentials);
+  document.addEventListener('keydown',modalKeydown);
+  $('akInput').focus();
+}
+function closeBinding(){
+  const ak=$('akInput'),sk=$('skInput');if(ak)ak.value='';if(sk)sk.value='';
+  $('modalRoot').innerHTML='';document.removeEventListener('keydown',modalKeydown);
+  if(modalReturnFocus&&typeof modalReturnFocus.focus==='function'&&modalReturnFocus.isConnected)modalReturnFocus.focus();
+  modalReturnFocus=null;
+}
+function modalKeydown(event){
+  if(event.key==='Escape'){event.preventDefault();closeBinding();return;}
+  if(event.key!=='Tab')return;
+  const focusables=Array.from($('modalRoot').querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex="0"]'));
+  if(!focusables.length)return;
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(event.shiftKey&&(document.activeElement===first||!$('modalRoot').contains(document.activeElement))){event.preventDefault();last.focus();}
+  else if(!event.shiftKey&&(document.activeElement===last||!$('modalRoot').contains(document.activeElement))){event.preventDefault();first.focus();}
+}
+function bindDemoCredentials(event){
+  event.preventDefault();
+  const accepted=$('akInput').value==='demo-ak'&&$('skInput').value==='demo-sk';
+  $('akInput').value='';$('skInput').value='';
+  if(!accepted){$('bindError').textContent='仅接受 demo-ak / demo-sk。已清空输入，'+(bound?'原有效绑定保持不变。':'请点击“填入演示值”后重新绑定。');$('bindError').hidden=false;$('akInput').focus();return;}
+  bound=true;
+  try { localStorage.setItem(bindingStorageKey,'true'); bindingRemembered=true; } catch (error) { bindingRemembered=false; }
+  closeBinding();updateControls();notify(bindingRemembered?'演示绑定成功并已记住，下次无需重复绑定。':'演示绑定成功，当次可用；浏览器存储不可用，未能记住绑定。');
+}
+function startQuery(){
+  const skill=$('skill').value,question=$('question').value.trim();
+  if(querying||!skill||!bound||!question)return;
+  const outcome=$('nextOutcome').value;
+  querying=true;updateControls();setStatus('running','查询中');
+  $('result').innerHTML='<div class="result-empty"><span class="spinner" aria-hidden="true"></span><h3>正在查询…</h3><p>正在调用 '+escapeHTML(skillNames[skill])+'，请稍候。</p></div>';
+  setTimeout(()=>{querying=false;if(outcome==='success')renderSuccess(skill);else if(outcome==='empty')renderEmpty(skill);else renderFailure(outcome);updateControls();},1800);
+}
+function renderSuccess(skill){
+  setStatus('success','查询成功');
+  const quality=skill==='quality';
+  const description=quality?'示例周期内，共抽检 <strong>12,000</strong> 个样本，其中 <strong>384</strong> 个不合格，不合格率为 <strong>3.2%</strong>。各业务线情况如下。':'示例周期内，三条业务线的作业量合计 <strong>48,000</strong> 条。各业务线作业量如下。';
+  const head=quality?'<tr><th>业务线</th><th class="num">抽检样本数</th><th class="num">不合格样本数</th><th class="num">不合格率</th></tr>':'<tr><th>业务线</th><th class="num">作业量（条）</th></tr>';
+  const data=quality?[['内容审核','7,000','280','4.0%'],['商品审核','3,000','72','2.4%'],['直播审核','2,000','32','1.6%']]:[['内容审核','28,000'],['商品审核','12,000'],['直播审核','8,000']];
+  const tableRows=data.map(row=>'<tr>'+row.map((value,i)=>'<td'+(i?' class="num"':'')+'>'+value+'</td>').join('')+'</tr>').join('');
+  $('result').innerHTML='<div class="result-content"><div class="result-meta"><span class="label">固定演示结果</span><span>'+escapeHTML(skillNames[skill])+'</span><span>· 2026-10-19 至 10-25</span></div><p class="result-description">'+description+'</p><div class="table-wrap"><table><thead>'+head+'</thead><tbody>'+tableRows+'</tbody></table></div><p class="result-note">以上为内置示例数据，用于演示调用与结果展示；未根据输入的问题执行真实查询。</p></div>';
+}
+function renderEmpty(skill){setStatus('success','查询成功');$('result').innerHTML='<div class="result-empty"><div class="result-symbol" aria-hidden="true">∅</div><h3>暂无匹配数据</h3><p>'+escapeHTML(skillNames[skill])+'已完成模拟查询，但没有返回数据。<br>无数据不代表指标为 0，请调整问题后重试。</p></div>';}
+function renderFailure(type){
+  setStatus('error','查询失败');
+  const messages={quota:{title:'调用额度不足',detail:'请检查个人 API Key 对应账户的额度，恢复额度后重新查询。'},auth:{title:'AK / SK 已失效',detail:'请重新绑定 AK / SK 后，再发起查询。'},failure:{title:'Skill 调用失败',detail:'本次调用未成功，请稍后重试或检查 Skill 是否可用。'}};
+  const message=messages[type]||messages.failure;if(type==='auth'){
+    bound=false;bindingRemembered=false;
+    try { localStorage.removeItem(bindingStorageKey); } catch (error) {
+      try { localStorage.setItem(bindingStorageKey,'false'); } catch (storageError) { notify('演示绑定已失效；浏览器存储不可用，无法更新记忆状态。'); }
+    }
+  }
+  $('result').innerHTML='<div class="result-empty"><div class="error-icon" aria-hidden="true">!</div><h3 class="error-title">'+message.title+'</h3><p>'+message.detail+'</p>'+(type==='auth'?'<button class="btn result-error-button" type="button" id="rebindButton">重新绑定 AK / SK</button>':'')+'<p style="margin-top:13px;font-size:10px;color:#b1bac9">模拟异常；可在“演示设置”中修改下次返回状态。</p></div>';
+  if(type==='auth')$('rebindButton').addEventListener('click',openBinding);
+}
+updateControls();
+</script>
+</body>
+</html>
